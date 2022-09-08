@@ -14,30 +14,14 @@
 </template>
 
 <script>
-import axios from "axios";
 import RecordCard from "./RecordCard.vue";
 
 export default {
-  data() {
-    return {
-      records: [],
-    };
+  props: {
+    records: Array,
   },
-
   components: {
     RecordCard,
-  },
-  methods: {
-    getRecords() {
-      axios
-        .get("https://flynn.boolean.careers/exercises/api/array/music")
-        .then((response) => {
-          this.records.push(...response.data.response);
-        });
-    },
-  },
-  mounted() {
-    this.getRecords();
   },
 };
 </script>
