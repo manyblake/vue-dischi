@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <MainHeader @onSelectChange="searchRecord" />
-    <MainContent :genre="input" />
+    <MainHeader @onGenreChange="getGenre" @onAuthorChange="getAuthor" />
+    <MainContent :genre="genre" :author="author" />
   </div>
 </template>
 
@@ -14,7 +14,8 @@ export default {
 
   data() {
     return {
-      input: "",
+      genre: "",
+      author: "",
     };
   },
 
@@ -24,8 +25,12 @@ export default {
   },
 
   methods: {
-    searchRecord(data) {
-      return (this.input = data);
+    getGenre(data) {
+      return (this.genre = data);
+    },
+
+    getAuthor(data) {
+      return (this.author = data);
     },
   },
 };

@@ -26,15 +26,25 @@ export default {
 
   props: {
     genre: String,
+    author: String,
   },
 
   computed: {
     filteredRecords() {
-      if (!this.genre) return this.records;
+      if (this.genre) {
+        return this.records.filter(
+          (record) => record.genre.toLowerCase() === this.genre
+        );
+      }
 
-      return this.records.filter(
-        (record) => record.genre.toLowerCase() === this.genre
-      );
+      if (this.author) {
+        return this.records.filter(
+          (record) =>
+            record.author.toLowerCase().split(" ").join("") === this.author
+        );
+      }
+
+      return this.records;
     },
   },
 
