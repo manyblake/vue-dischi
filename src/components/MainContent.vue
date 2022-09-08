@@ -31,13 +31,18 @@ export default {
 
   computed: {
     filteredRecords() {
-      if (this.genre) {
+      if (this.genre && this.author) {
+        return this.records
+          .filter((record) => record.genre.toLowerCase() === this.genre)
+          .filter(
+            (record) =>
+              record.author.toLowerCase().split(" ").join("") === this.author
+          );
+      } else if (this.genre) {
         return this.records.filter(
           (record) => record.genre.toLowerCase() === this.genre
         );
-      }
-
-      if (this.author) {
+      } else if (this.author) {
         return this.records.filter(
           (record) =>
             record.author.toLowerCase().split(" ").join("") === this.author
