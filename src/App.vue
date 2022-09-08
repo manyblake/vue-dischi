@@ -1,47 +1,32 @@
 <template>
   <div id="app">
-    <MainHeader @onSelectChange="filteredRecord" />
-    <MainContent :records="filteredRecords" />
+    <MainHeader @onSelectChange="searchRecord" />
+    <MainContent :genre="input" />
   </div>
 </template>
 
 <script>
 import MainContent from "./components/MainContent.vue";
 import MainHeader from "./components/MainHeader.vue";
-import axios from "axios";
 
 export default {
   name: "App",
+
   data() {
     return {
-      records: [],
+      input: "",
     };
-  },
-
-  computed: {
-    filteredRecords(input) {
-      return this.records.filter(
-        (record) => record.genre.toLowerCase() === input
-      );
-    },
-  },
-
-  methods: {
-    getRecords() {
-      axios
-        .get("https://flynn.boolean.careers/exercises/api/array/music")
-        .then((response) => {
-          this.records.push(...response.data.response);
-        });
-    },
-  },
-  mounted() {
-    this.getRecords();
   },
 
   components: {
     MainContent,
     MainHeader,
+  },
+
+  methods: {
+    searchRecord(data) {
+      return (this.input = data);
+    },
   },
 };
 </script>

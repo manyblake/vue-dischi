@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <ul class="records-list">
-      <li v-for="(record, i) in records" :key="i" class="record-card">
+      <li v-for="(record, i) in filteredRecords" :key="i" class="record-card">
         <RecordCard
           :title="record.title"
           :img="record.poster"
@@ -15,13 +15,44 @@
 
 <script>
 import RecordCard from "./RecordCard.vue";
+import axios from "axios";
 
 export default {
-  props: {
-    records: Array,
+  data() {
+    return {
+      records: [],
+    };
   },
+
+  props: {
+    genre: String,
+  },
+
+  computed: {
+    filteredRecords() {
+      if (!this.genre) return this.records;
+
+      return this.records.filter(
+        (record) => record.genre.toLowerCase() === this.genre
+      );
+    },
+  },
+
   components: {
     RecordCard,
+  },
+
+  methods: {
+    getRecords() {
+      axios
+        .get("https://flynn.boolean.careers/exercises/api/array/music")
+        .then((response) => {
+          this.records.push(...response.data.response);
+        });
+    },
+  },
+  created() {
+    this.getRecords();
   },
 };
 </script>

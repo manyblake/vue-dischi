@@ -6,6 +6,7 @@
       v-model="inputSearch"
       @change="$emit('onSelectChange', inputSearch)"
     >
+      <option value="">Seleziona un genere</option>
       <option value="rock">Rock</option>
       <option value="pop">Pop</option>
       <option value="jazz">Jazz</option>
